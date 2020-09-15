@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+</head>
+<body>
+<!--    <div sec:authorize="isAuthenticated()">-->
+    <div>
+        <h4 th:inline="text">BannerID: [[${#httpServletRequest.remoteUser}]]</h4>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+    <h2>All Courses</h2>
+<!--    <div sec:authorize="isAuthenticated()">-->
+        <!-- Learned how to do this here: https://www.baeldung.com/thymeleaf-list -->
+    <div>
+        <form th:action="@{/admin/addCourse}">
+            <input type="submit" value="Add a course"/>
+        </form>
+        <table>
+            <tr th:each="course : ${courses}">
+                <td><a th:text="${course.getCourseId()}">Course ID</a></td>
+                <td><a th:text="${course.getCourseName()}">Course Title</a></td>
+                <td><input type="submit" value="Delete"/></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
